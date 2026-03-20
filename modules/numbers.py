@@ -7,7 +7,6 @@ def to_decimal(chosen_digit, base):
     digits = (string.digits + string.ascii_lowercase)
     base = int(base)
 
-
     for digit in chosen_digit:
         digital_value = digits.index(digit)
         dec_digit_var = digital_value*base**chosen_digit_length
@@ -15,15 +14,26 @@ def to_decimal(chosen_digit, base):
         chosen_digit_length -= 1
     return dec_number
 
-#def from_decimal():
+def from_decimal(chosen_digit, base):
+    output_number = 0
+    chosen_digit_length = len(chosen_digit) - 1
+    base = int(base)
+
+    while not chosen_digit == 0:
+        temp_number = int(chosen_digit)
+        rest = chosen_digit % base
+        temp_number -= rest
+
+
+
 
 # Input from user
-base = input("Enter the base (2 ro 16): ")
+base = input("Enter the base (2 or 16): ")
 user_input = input("Enter the number: ")
 
-# Output
-result = to_decimal(user_input, base)
-print(result)
+# Decimal Output
+dec_result = to_decimal(user_input.strip().lower(), base)
+print(dec_result)
 
 
 
