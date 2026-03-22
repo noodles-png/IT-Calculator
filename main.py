@@ -1,3 +1,5 @@
+from modules.numbers import number_conversion
+
 # Farbdefinitionen
 green = "\033[92m"
 red = "\033[91m"
@@ -24,11 +26,14 @@ def show_menu():
         # User Inputs choice of cateory
         choice = input("Choose an option: ").strip().lower()
 
+
         if choice == "q":
             break
         elif choice.isdigit():
             choice = int(choice)
             if 1 <= choice <= len(categories):
+                if choice == 1:
+                    number_conversion()
                 choice_index = choice - 1
                 chosen_category = categories[choice_index]
                 print(chosen_category)
