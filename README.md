@@ -5,9 +5,10 @@ This is a learning project for myself and doesn't use integrated´function like 
 ## Installation
 
 ## Features
-
-## Upcoming features
 - Conversion of different based number to other bases. Decimal, Binary and Hexadecimal
+- 
+## Upcoming features
+
 - Conversion of storage sizes
 - Conversion of IPv4 and IPv6 related numbers like Subnetting masks
 

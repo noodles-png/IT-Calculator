@@ -1,4 +1,5 @@
-from modules.numbers import number_conversion
+from modules.numbers import number_menu
+from modules.storage import storage_menu
 
 # Farbdefinitionen
 green = "\033[92m"
@@ -19,13 +20,11 @@ def show_menu():
     while True:
         print(f"{green}{bold}=== IT-Rechner ==={reset}")
         for cat_index, category in enumerate(categories, start=1):
-            cat_index += 1
             print(f"[{cat_index}] {category}")
         print("[Q] Beenden")
 
-        # User Inputs choice of cateory
+        # User Inputs choice of category
         choice = input("Choose an option: ").strip().lower()
-
 
         if choice == "q":
             break
@@ -34,9 +33,8 @@ def show_menu():
             if 1 <= choice <= len(categories):
                 if choice == 1:
                     number_conversion()
-                choice_index = choice - 1
-                chosen_category = categories[choice_index]
-                print(chosen_category)
+                elif choice == 2:
+                    storage_menu()
             else:
                 print(f"{red}Input not valid{reset}")
                 continue

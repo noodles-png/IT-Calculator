@@ -6,10 +6,11 @@ def to_decimal(chosen_digit, base):
 
     for digit in chosen_digit:
         digital_value = digits.index(digit)
-        dec_digit_var = digital_value*base**chosen_digit_length
+        dec_digit_var = digital_value * base ** chosen_digit_length
         result += dec_digit_var
         chosen_digit_length -= 1
     return result
+
 
 # Converts decimal into binary or hexadecimal
 def from_decimal(chosen_digit, base):
@@ -24,12 +25,14 @@ def from_decimal(chosen_digit, base):
         value = value // base
     return result
 
+
 def is_valid(user_input):
     digits = "0123456789"
-    allowed = set(digits[ :base])
-    return all(c in allowed for c in user_input )
+    allowed = set(digits[:base])
+    return all(c in allowed for c in user_input)
 
-def number_conversion():
+
+def number_menu():
     while True:
         # Input from user
         print(f"=== Number conversion ===\n")
@@ -79,6 +82,3 @@ def number_conversion():
             print("Invalid input")
             continue
     return
-
-
-
