@@ -1,1 +1,15 @@
 # IT-Calculator
+A terminal based calculator written in Python to convert common used Units in the IT world. 
+This is a learning project for myself and doesn't use integrated´function like hex() 
+
+## Installation
+
+## Features
+
+## Upcoming features
+- Conversion of different based number to other bases. Decimal, Binary and Hexadecimal
+- Conversion of storage sizes
+- Conversion of IPv4 and IPv6 related numbers like Subnetting masks
+
+## License
+It is a learning project and falls under the MIT licence

@@ -1,39 +1,55 @@
-import string
-
-# Konvertiert Zahl in Dezimal
+# Converts non decimal into decimal
 def to_decimal(chosen_digit, base):
-    dec_number = 0
+    result = 0
     chosen_digit_length = len(chosen_digit) - 1
-    digits = (string.digits + string.ascii_lowercase)
     base = int(base)
 
     for digit in chosen_digit:
         digital_value = digits.index(digit)
         dec_digit_var = digital_value*base**chosen_digit_length
-        dec_number += dec_digit_var
+        result += dec_digit_var
         chosen_digit_length -= 1
-    return dec_number
+    return result
 
+# Converts decimal into binary or hexadecimal
 def from_decimal(chosen_digit, base):
-    output_number = 0
-    chosen_digit_length = len(chosen_digit) - 1
-    base = int(base)
-
-    while not chosen_digit == 0:
-        temp_number = int(chosen_digit)
-        rest = chosen_digit % base
-        temp_number -= rest
-
-
+    value = chosen_digit
+    hex_value = (chosen_digit)
+    result = ""
+    if value == 0:
+        return "0"
+    while value > 0:
+        rest = value % base
+        result = digits[rest] + result
+        value = value // base
+    return result
 
 
 # Input from user
-base = input("Enter the base (2 or 16): ")
-user_input = input("Enter the number: ")
+print(f"=== Number conversion ===\n")
+print("\nDecimal or not decimal?")
+print("\n[1] Decimal\n[2] Non-decimal")
+user_choice = input("Enter your choice: ")
 
-# Decimal Output
-dec_result = to_decimal(user_input.strip().lower(), base)
-print(dec_result)
+digits = "0123456789abcdef"
+
+if user_choice == "1":
+    base = int(input("Enter the target base: "))
+    user_input = int(input("Enter the number: "))
+
+    # Non-decimal Output
+    result = from_decimal(user_input, base)
+    print(result)
+
+if user_choice == "2":
+    base = input("Enter the base (2 or 16): ")
+    user_input = input("Enter the number: ")
+
+    # Decimal Output
+    result = to_decimal(user_input.strip().lower(), base)
+    print(result)
+
+
 
 
 
