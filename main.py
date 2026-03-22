@@ -32,9 +32,11 @@ def show_menu():
             choice = int(choice)
             if 1 <= choice <= len(categories):
                 if choice == 1:
-                    number_conversion()
+                    number_menu()
                 elif choice == 2:
                     storage_menu()
+                elif choice == 3:
+                    network_menu()
             else:
                 print(f"{red}Input not valid{reset}")
                 continue

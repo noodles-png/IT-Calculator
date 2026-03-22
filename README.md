@@ -6,11 +6,11 @@ This is a learning project for myself and doesn't use integrated´function like 
 
 ## Features
 - Conversion of different based number to other bases. Decimal, Binary and Hexadecimal
+- Conversion of storage sizes
 - 
 ## Upcoming features
-
-- Conversion of storage sizes
 - Conversion of IPv4 and IPv6 related numbers like Subnetting masks
+- Calculator for bandwith relevant infos
 
 ## License
 It is a learning project and falls under the MIT licence
