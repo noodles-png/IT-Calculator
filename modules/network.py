@@ -17,12 +17,51 @@ size_units = {
     "tb": 8000000000000,
 }
 
-def network_Calc():
+"""def format_time(input_time):
+     input_time = float(input_time)
+     if input_time >= 60:
+         output_time = input_time / 60
+     elif input_time < 1:
+         output_time = input_time
+"""
+# calculates time = bits % bps
+def time_calc(value, value_unit, bandwith_size, bandwith_unit):
+    size_unit = size_units[value_unit]
+    bandwith_unit = bandwith_units[bandwith_unit]
+    result = (value * size_unit) / (bandwith_size * bandwith_unit)
+    return result
+
+# calculates bits = bps * second
+#def size_calc():
+
+
+# calculates bits per second (bps)
+#def bandwith_calc():
+
 
 
 
 def network_menu():
     while True:
+        print("=== Network Calculator ===")
+        print("Choose a Calculator")
+        print("[1] Time\n[2] Size\n[3] Bandwith")
+        calc_choice = input("Choose an option: ")
+        if calc_choice == "1":
+            value = float(input("Enter size: "))
+            value_unit = input("Choose a unit: ")
+            bandwith_size = float(input("Choose a bandwith: "))
+            bandwith_unit = input("Choose a unit: ")
+            result = time_calc(value, value_unit, bandwith_size, bandwith_unit)
+            print(result)
+        elif calc_choice == "2":
+            size_calc()
+        elif calc_choice == "3":
+            bandwith_calc()
+        else:
+            print("Invalid input")
+            continue
+
 
 
 
@@ -33,3 +72,5 @@ def network_menu():
             return
         else:
             print("Invalid input")
+
+network_menu()

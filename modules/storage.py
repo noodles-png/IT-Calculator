@@ -1,3 +1,4 @@
+# decimal units (SI)
 dec_units = {
     "bit": 0.125,
     "byte": 1,
@@ -7,6 +8,8 @@ dec_units = {
     "tb": 1000000000000,
     "pb": 1000000000000000
 }
+
+# binary units
 bi_units = {
     "bit": 0.125,
     "byte": 1,
@@ -17,7 +20,8 @@ bi_units = {
     "pib": 1125899906842624
 }
 
-def storage_conversion(value, from_unit, to_unit, mode):
+# function to convert units
+def storage_conv(value, from_unit, to_unit, mode):
     if mode == "1":
         units = dec_units
     elif mode == "2":
@@ -31,6 +35,7 @@ def storage_conversion(value, from_unit, to_unit, mode):
     result = value * from_factor / to_factor
     return result
 
+# Menu function for access to conv function
 def storage_menu():
     while True:
         print(f"=== Storage units conversion ===\n")
@@ -55,7 +60,7 @@ def storage_menu():
         to_choice = int(input("Enter Output unit: ")) - 1
         to_unit = unit_index[to_choice]
 
-        result = storage_conversion(value, from_unit, to_unit, mode)
+        result = storage_conv(value, from_unit, to_unit, mode)
         print("=== Results ===")
         print(f"\n{value}{from_unit} = {result}{to_unit}")
         outro_choice = input("[1] Again or [2] main menu? ")
@@ -65,4 +70,3 @@ def storage_menu():
             return
         else:
             print("Invalid input")
-
