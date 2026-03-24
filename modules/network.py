@@ -17,13 +17,14 @@ size_units = {
     "tb": 8000000000000,
 }
 
-"""def format_time(input_time):
+def format_time(input_time):
      input_time = float(input_time)
      if input_time >= 60:
-         output_time = input_time / 60
+         conv_time = str(input_time / 60)
+         output_time = conv_time + "min"
      elif input_time < 1:
-         output_time = input_time
-"""
+         conv_time = input_time
+
 # calculates time = bits % bps
 def time_calc(value, value_unit, bandwith_size, bandwith_unit):
     size_unit = size_units[value_unit]
@@ -32,7 +33,7 @@ def time_calc(value, value_unit, bandwith_size, bandwith_unit):
     return result
 
 # calculates bits = bps * second
-#def size_calc():
+#def size_calc(value):
 
 
 # calculates bits per second (bps)
@@ -61,8 +62,6 @@ def network_menu():
         else:
             print("Invalid input")
             continue
-
-
 
 
         outro_choice = input("[1] Again or [2] main menu? ")
