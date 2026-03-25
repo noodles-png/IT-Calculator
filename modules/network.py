@@ -35,11 +35,18 @@ def time_calc(value, value_unit, bandwith_size, bandwith_unit):
     return result
 
 # calculates bits = bps * second
-#def size_calc(value):
-
+def size_calc(time_input, bandwith_size, bandwith_unit):
+    time = int(time_input)
+    bandwith_unit = bandwith_units[bandwith_unit]
+    result = time * (bandwith_size * bandwith_unit)
+    return result
 
 # calculates bits per second (bps)
-#def bandwith_calc():
+def bandwith_calc(value, value_unit, time_input):
+    size_unit = size_units[value_unit]
+    result = (value *value_unit) / time_input
+    return result
+
 
 
 
