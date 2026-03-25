@@ -17,13 +17,15 @@ size_units = {
     "tb": 8000000000000,
 }
 
-def format_time(input_time):
-     input_time = float(input_time)
-     if input_time >= 60:
-         conv_time = str(input_time / 60)
-         output_time = conv_time + "min"
-     elif input_time < 1:
-         conv_time = input_time
+def format_time(seconds):
+    if seconds >= 3600:
+        return f"{seconds /3600:.2f} hours"
+    elif seconds >= 60:
+        return f"{seconds /60:.2f} minutes"
+    elif seconds >= 1:
+        return f"{seconds /1:.2f} seconds"
+    else:
+        return f"{seconds * 1000:.2f} milliseconds"
 
 # calculates time = bits % bps
 def time_calc(value, value_unit, bandwith_size, bandwith_unit):
