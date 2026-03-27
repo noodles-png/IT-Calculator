@@ -8,11 +8,10 @@ Run main_py und navigate via input prompts the menu.
 ## Features
 - Conversion of different based number to other bases. Decimal, Binary and Hexadecimal
 - Conversion of storage sizes
-- 
+- Calculator for bandwith relevant infos
 
 ## Upcoming features
 - Conversion of IPv4 and IPv6 related numbers like Subnetting masks
-- Calculator for bandwith relevant infos
 - GUI or standalone app 
 
 ## License

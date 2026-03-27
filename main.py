@@ -1,6 +1,6 @@
 from modules.numbers import number_menu
 from modules.storage import storage_menu
-#from modules.network import network_menu
+from modules.network import network_menu
 
 # Farbdefinitionen
 green = "\033[92m"

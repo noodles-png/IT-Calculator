@@ -1,5 +1,5 @@
 # Bandwidth units
-bandwith_units = {
+bandwidth_units = {
     "bps": 1,
     "kbps": 1000,
     "mbps": 1000000,
@@ -49,23 +49,13 @@ def bandwidth_calc(value, value_unit, time_input):
     return result
 
 # chooses unit choice via index choice
-def unit_choice(unit_db):
-    if unit_db == 1:
-        unit_index = list(size_units.keys())
-        for i, unit in enumerate(unit_index, start=1):
-            print(f"[{i}] {unit}")
-        choice = input("Choose a unit: ")
-        unit_result = unit_choice(choice)
-        return unit_result
-    elif unit_db == 2:
-        unit_index = list(bandwidth_units.keys())
-        for i, unit in enumerate(unit_index, start=1):
-            print(f"[{i}] {unit}")
-        choice = input("Choose a unit: ")
-        unit_result = unit_choice(choice)
-        return unit_result
-    else:
-        print("Invalid input")
+def unit_choice(units):
+    unit_index = list(units.keys())
+    for i, unit in enumerate(unit_index, start=1):
+        print(f"[{i}] {unit}")
+    choice = int(input("Choose a unit: ")) -1
+    return unit_index[choice]
+
 
 # menu for network.py
 def network_menu():
@@ -74,29 +64,25 @@ def network_menu():
         print("Choose a Calculator")
         print("[1] Time\n[2] Size\n[3] Bandwidth")
         calc_choice = input("Choose an option: ")
-        unit_db = calc_choice
         if calc_choice == "1":
             value = float(input("Enter size: "))
-            value_unit = input("Choose a unit: ")
-            unit_choice(value_unit)
-            value_unit = unit_choice(value_unit)
+            value_unit = unit_choice(size_units)
             bandwidth_size = float(input("Choose a bandwidth: "))
-            unit_db = 2
-            bandwidth_unit = input("Choose a unit: ")
-            unit_choice(bandwidth_unit)
-            bandwidth_unit = unit_choice(bandwidth_unit)
+            bandwidth_unit = unit_choice(bandwidth_units)
             result = time_calc(value, value_unit, bandwidth_size, bandwidth_unit)
             print((format_time(result)))
         elif calc_choice == "2":
-            time_input = float(input("Enter time: "))
-            bandwidth_size = float(input("Choose a bandwidth: "))
-            bandwidth_unit = input("Choose a unit: ")
+            time_input = float(input("Enter time in sec: "))
+            bandwidth_size = float(input("Enter bandwidth: "))
+            bandwidth_unit = unit_choice(bandwidth_units)
             result = size_calc(time_input, bandwidth_size, bandwidth_unit)
+            print(f"{result:.2f} Bit")
         elif calc_choice == "3":
             value = float(input("Enter value: "))
-            value_unit = input("Choose a unit: ")
+            value_unit = unit_choice(value_unit)
             time_input = float(input("Enter time: "))
             result = bandwidth_calc(value, value_unit, time_input)
+            print(f"{result:.2f} Bits per second")
         else:
             print("Invalid input")
             continue
@@ -108,5 +94,3 @@ def network_menu():
             return
         else:
             print("Invalid input")
-
-network_menu()
