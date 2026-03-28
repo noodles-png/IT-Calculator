@@ -9,9 +9,9 @@ Run main_py und navigate via input prompts the menu.
 - Conversion of different based number to other bases. Decimal, Binary and Hexadecimal
 - Conversion of storage sizes
 - Calculator for bandwith relevant infos
+- Shows subnetting masks of Ipv4
 
 ## Upcoming features
-- Conversion of IPv4 and IPv6 related numbers like Subnetting masks
 - GUI or standalone app 
 
 ## License
