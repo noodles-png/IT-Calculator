@@ -1,7 +1,11 @@
 from modules.helpers import outro_prompt
 
-# validates the user input
 def valid_ip(ip_input):
+    """ Checks if an IP address is valid
+    Args:
+        ip_input (str): IP address
+    Returns: True or False
+        """
     segments = ip_input.split(".")
     if len(segments) != 4:
         return False
@@ -12,8 +16,11 @@ def valid_ip(ip_input):
             return False
     return True
 
-# converts the ip address to an integer
 def ip_to_int(ip_input):
+    """ Converts an IP address to an integer
+    Args: ip_input (str): IP address
+    Returns: integer
+    """
     if valid_ip(ip_input) == True:
         ip_segments = ip_input.split(".")
         int_result = (int(
@@ -27,8 +34,10 @@ def ip_to_int(ip_input):
         print("Invalid IP address")
         return False
 
-# converts a number to an ip address
 def int_to_ip(ip):
+    """ Converts an integer to an IP address
+    Args: ip (int): Integer to convert to an IP address
+    Returns: IP address"""
     byte_1 = (ip >> 24) & 0xFF
     byte_2 = (ip >> 16) & 0xFF
     byte_3 = (ip >> 8) & 0xFF
@@ -36,12 +45,22 @@ def int_to_ip(ip):
     ip_string = f"{byte_1}.{byte_2}.{byte_3}.{byte_4}"
     return ip_string
 
-# interprets the CIDR notation as subnetting mask
 def cidr_to_mask(prefix):
+    """ Converts an IP address/CIDR to a mask in Bits
+    Args: prefix (int): IP address/CIDR
+    Returns: mask in bits
+    """
     mask = 0xFFFFFFFF << (32 - prefix) & 0xFFFFFFFF
     return mask
 
 def calculate_subnet(int_result, mask, prefix):
+    """ Calculates the subnet mask and all network addresses
+    Args:
+        int_result (int): integer to use for all operations
+        mask (int): mask to use
+        prefix (int): prefix used to calculate the host amount
+    Returns: a list of all related network addresses
+        """
     network_address = int_result & mask
     broadcast = int_result | (mask ^ 0xFFFFFFFF)
     host_begin = network_address + 1

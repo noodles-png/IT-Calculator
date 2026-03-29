@@ -17,8 +17,9 @@ categories = [
     "Subnetting",
 ]
 
-# Main menu function
+
 def show_menu():
+    """ Shows the menu with options """
     while True:
         print(f"{green}{bold}=== IT-Rechner ==={reset}")
         for cat_index, category in enumerate(categories, start=1):

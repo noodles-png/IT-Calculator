@@ -19,8 +19,15 @@ size_units = {
     "tb": 8000000000000,
 }
 
-# formats sec into min or ms
 def format_time(seconds):
+    """ Formats the time in certain time units
+
+    Args:
+        seconds: the time in seconds
+
+    Returns:
+        returns the formatted time in certain time units
+    """
     if seconds >= 3600:
         return f"{seconds /3600:.2f} hours"
     elif seconds >= 60:
@@ -30,28 +37,52 @@ def format_time(seconds):
     else:
         return f"{seconds * 1000:.2f} milliseconds"
 
-# calculates time = bits % bps
+
 def time_calc(value, value_unit, bandwidth_size, bandwidth_unit):
+    """ Calculates the time it takes to download a certain sized file
+
+    Args:
+        value: size of the file
+        value_unit: size unit of the file
+        bandwidth_size: size of the network bandwidth
+        bandwidth_unit: size unit of the network bandwidth
+
+    Returns: time in seconds
+    """
     size_unit = size_units[value_unit]
     bandwidth_unit = bandwidth_units[bandwidth_unit]
     result = (value * size_unit) / (bandwidth_size * bandwidth_unit)
     return result
 
-# calculates bits = bps * second
+
 def size_calc(time_input, bandwidth_size, bandwidth_unit):
+    """ Calculates the size of a file to be sent in a network
+    Args:
+        time_input: time in seconds
+        bandwidth_size: size of the network bandwidth
+        bandwidth_unit: size unit of the network bandwidth
+    Returns: size in bytes """
     time = int(time_input)
     bandwidth_unit = bandwidth_units[bandwidth_unit]
     result = time * (bandwidth_size * bandwidth_unit)
     return result
 
-# calculates bits per second (bps)
+
 def bandwidth_calc(value, value_unit, time_input):
+    """ Calculates the size of the network bandwidth
+    Args:
+        value: size of the file
+        value_unit: size unit of the file
+        time_input: time in seconds
+    Returns: size of the network bandwidth in bits per second
+    """
     size_unit = size_units[value_unit]
     result = (value * size_unit) / time_input
     return result
 
-# menu for network.py
+
 def network_menu():
+    """ CLI interface for network conversion """
     while True:
         print("=== Network Calculator ===")
         print("Choose a Calculator")
