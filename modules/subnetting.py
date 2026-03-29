@@ -1,3 +1,5 @@
+from modules.helpers import outro_prompt
+
 # validates the user input
 def valid_ip(ip_input):
     segments = ip_input.split(".")
@@ -47,12 +49,13 @@ def calculate_subnet(int_result, mask, prefix):
     host_amount = 2**(32 - prefix) - 2
     print(f"Netzadresse: {int_to_ip(network_address)}")
     print(f"Broadcast: {int_to_ip(broadcast)}")
+    print(f"Subnet mask: {int_to_ip(mask)}")
     print(f"Host begin: {int_to_ip(host_begin)}")
     print(f"Host end: {int_to_ip(host_end)}")
     print(f"Host amount: {host_amount}")
 
 # takes the user input for conversion
-def subnetting_menu():
+def subnet_menu():
     while True:
         print("=== Subnetting Menu ===\n")
         ip_input = input("Enter an IP address/CIDR: ")
@@ -61,4 +64,9 @@ def subnetting_menu():
         int_result = ip_to_int(ip)
         mask = cidr_to_mask(prefix)
         calculate_subnet(int_result, mask, prefix)
-
+        outro = outro_prompt()
+        if outro == "again":
+            continue
+        elif outro == "menu":
+            return
+    return

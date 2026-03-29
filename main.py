@@ -1,6 +1,7 @@
 from modules.numbers import number_menu
 from modules.storage import storage_menu
 from modules.network import network_menu
+from modules.subnetting import subnet_menu
 
 # Farbdefinitionen
 green = "\033[92m"
@@ -37,6 +38,8 @@ def show_menu():
                     storage_menu()
                 elif choice == 3:
                     network_menu()
+                elif choice == 4:
+                    subnet_menu()
             else:
                 print(f"{red}Input not valid{reset}")
                 continue

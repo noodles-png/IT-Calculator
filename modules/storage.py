@@ -1,3 +1,5 @@
+from modules.helpers import outro_prompt, unit_choice
+
 # decimal units (SI)
 dec_units = {
     "bit": 0.125,
@@ -50,23 +52,14 @@ def storage_menu():
             print("Invalid mode")
             return None
 
-        unit_index = list(units.keys())
-        for i, unit in enumerate(unit_index, start=1):
-            print(f"[{i}] {unit}")
-
         value = float(input("Enter your number: "))
-        from_choice = int(input("Enter Input unit: ")) - 1
-        from_unit = unit_index[from_choice]
-        to_choice = int(input("Enter Output unit: ")) - 1
-        to_unit = unit_index[to_choice]
-
+        from_unit = unit_choice(units)
+        to_unit = unit_choice(units)
         result = storage_conv(value, from_unit, to_unit, mode)
         print("=== Results ===")
         print(f"\n{value}{from_unit} = {result}{to_unit}")
-        outro_choice = input("[1] Again or [2] main menu? ")
-        if outro_choice == "1":
+        outro = outro_prompt()
+        if outro == "again":
             continue
-        elif outro_choice == "2":
+        elif outro == "menu":
             return
-        else:
-            print("Invalid input")

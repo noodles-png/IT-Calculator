@@ -1,3 +1,5 @@
+from modules.helpers import outro_prompt
+
 # Converts non decimal into decimal
 def to_decimal(chosen_digit, base):
     digits = "0123456789abcdef"
@@ -48,13 +50,11 @@ def number_menu():
                 print(f"Binär: {from_decimal(user_input, 2)}")
                 print(f"Octal: {from_decimal(user_input, 8)}")
                 print(f"Hexadecimal: {from_decimal(user_input, 16)}")
-                outro_choice = input("[1] Again or [2] main menu? ")
-                if outro_choice == "1":
+                outro = outro_prompt()
+                if outro == "again":
                     continue
-                elif outro_choice == "2":
+                elif outro == "menu":
                     return
-                else:
-                    print("Invalid input")
             else:
                 print("Invalid input")
                 continue
@@ -65,13 +65,11 @@ def number_menu():
             user_input = input("Enter the number: ")
             if is_valid(user_input):
                 print(f"Dezimal: {to_decimal(user_input, base)}")
-                outro_choice = input("[1] Again or [2] main menu? ")
-                if outro_choice == "1":
+                outro = outro_prompt()
+                if outro == "again":
                     continue
-                elif outro_choice == "2":
+                elif outro == "menu":
                     return
-                else:
-                    print("Invalid input")
             else:
                 print("Invalid input")
                 continue

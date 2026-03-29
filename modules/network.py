@@ -1,3 +1,5 @@
+from modules.helpers import outro_prompt, unit_choice
+
 # Bandwidth units
 bandwidth_units = {
     "bps": 1,
@@ -48,15 +50,6 @@ def bandwidth_calc(value, value_unit, time_input):
     result = (value * size_unit) / time_input
     return result
 
-# chooses unit choice via index choice
-def unit_choice(units):
-    unit_index = list(units.keys())
-    for i, unit in enumerate(unit_index, start=1):
-        print(f"[{i}] {unit}")
-    choice = int(input("Choose a unit: ")) -1
-    return unit_index[choice]
-
-
 # menu for network.py
 def network_menu():
     while True:
@@ -87,10 +80,8 @@ def network_menu():
             print("Invalid input")
             continue
 
-        outro_choice = input("[1] Again or [2] main menu? ")
-        if outro_choice == "1":
+        outro = outro_prompt()
+        if outro == "again":
             continue
-        elif outro_choice == "2":
+        elif outro == "menu":
             return
-        else:
-            print("Invalid input")
