@@ -2,6 +2,12 @@ from modules.helpers import outro_prompt
 
 # Converts non decimal into decimal
 def to_decimal(chosen_digit, base):
+    """ Returns a decimal from chosen non-decimal number
+    Args:
+        chosen_digit: chosen non-decimal number
+        base: base to convert to
+    Returns: decimal from chosen non-decimal number
+        """
     digits = "0123456789abcdef"
     result = 0
     chosen_digit_length = len(chosen_digit) - 1
@@ -14,6 +20,12 @@ def to_decimal(chosen_digit, base):
 
 # Converts decimal into binary or hexadecimal
 def from_decimal(chosen_digit, base):
+    """ Returns a non-decimal from chosen decimal number
+    Args:
+        chosen_digit: chosen non-decimal number
+        base: base to convert to
+    Returns: non-decimal from chosen decimal number
+        """
     digits = "0123456789abcdef"
     value = chosen_digit
     result = ""
@@ -25,14 +37,18 @@ def from_decimal(chosen_digit, base):
         value = value // base
     return result
 
-# controls if input is valid (no xyz)
 def is_valid(user_input):
+    """ Returns True if user_input is valid, False otherwise
+    Args:
+        user_input: user_input to validate
+    Returns: True or False
+        """
     digits = "0123456789"
     allowed = set(digits[:base])
     return all(c in allowed for c in user_input)
 
-# menu to access functions (Input, functions, Outro)
 def number_menu():
+    """CLI interface for numbers module"""
     while True:
         # Input from user
         print(f"=== Number conversion ===\n")

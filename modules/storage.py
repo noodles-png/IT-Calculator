@@ -22,8 +22,13 @@ bi_units = {
     "pib": 1125899906842624
 }
 
-# function to convert units
 def storage_conv(value, from_unit, to_unit, mode):
+    """ Returns the conversion of either decimal or binary bases and size units
+    Args:
+        value (float): value to convert
+        from_unit (str): size unit from which to convert
+        to_unit (str): unit from which to convert
+        """
     if mode == "1":
         units = dec_units
     elif mode == "2":
@@ -37,8 +42,8 @@ def storage_conv(value, from_unit, to_unit, mode):
     result = value * from_factor / to_factor
     return result
 
-# Menu function for access to conv function
 def storage_menu():
+    """ CLI interface for storage module"""
     while True:
         print(f"=== Storage units conversion ===\n")
         print("Which output mode?")

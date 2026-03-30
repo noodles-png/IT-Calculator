@@ -75,6 +75,7 @@ def calculate_subnet(int_result, mask, prefix):
 
 # takes the user input for conversion
 def subnet_menu():
+    """ CLI interface for subnetting module """
     while True:
         print("=== Subnetting Menu ===\n")
         ip_input = input("Enter an IP address/CIDR: ")
