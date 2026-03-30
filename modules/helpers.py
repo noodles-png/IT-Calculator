@@ -1,4 +1,3 @@
-# central outro function for all modules
 def outro_prompt():
     """ Loops the current function or goes back to the main menu """
     while True:

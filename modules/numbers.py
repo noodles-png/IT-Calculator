@@ -1,7 +1,7 @@
 from modules.helpers import outro_prompt
 
-# Converts non decimal into decimal
-def to_decimal(chosen_digit, base):
+
+def to_decimal(chosen_digit: str, base: int) -> int:
     """ Returns a decimal from chosen non-decimal number
     Args:
         chosen_digit: chosen non-decimal number
@@ -18,8 +18,8 @@ def to_decimal(chosen_digit, base):
         chosen_digit_length -= 1
     return result
 
-# Converts decimal into binary or hexadecimal
-def from_decimal(chosen_digit, base):
+
+def from_decimal(chosen_digit: int, base: int) -> str:
     """ Returns a non-decimal from chosen decimal number
     Args:
         chosen_digit: chosen non-decimal number
@@ -37,7 +37,8 @@ def from_decimal(chosen_digit, base):
         value = value // base
     return result
 
-def is_valid(user_input):
+
+def is_valid(user_input: str, base: int) -> bool:
     """ Returns True if user_input is valid, False otherwise
     Args:
         user_input: user_input to validate
@@ -47,11 +48,12 @@ def is_valid(user_input):
     allowed = set(digits[:base])
     return all(c in allowed for c in user_input)
 
+
 def number_menu():
     """CLI interface for numbers module"""
     while True:
         # Input from user
-        print(f"=== Number conversion ===\n")
+        print("=== Number conversion ===\n")
         print("\nDecimal or not decimal?")
         print("\n[1] Decimal\n[2] Non-decimal")
         user_choice = input("Enter your choice: ")

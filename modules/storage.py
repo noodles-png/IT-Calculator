@@ -1,5 +1,6 @@
 from modules.helpers import outro_prompt, unit_choice
 
+
 # decimal units (SI)
 dec_units = {
     "bit": 0.125,
@@ -10,6 +11,7 @@ dec_units = {
     "tb": 1000000000000,
     "pb": 1000000000000000
 }
+
 
 # binary units
 bi_units = {
@@ -22,7 +24,12 @@ bi_units = {
     "pib": 1125899906842624
 }
 
-def storage_conv(value, from_unit, to_unit, mode):
+
+def storage_conv(value: float,
+                 from_unit: str,
+                 to_unit: str,
+                 mode: str
+                 ) -> float:
     """ Returns the conversion of either decimal or binary bases and size units
     Args:
         value (float): value to convert
@@ -36,18 +43,18 @@ def storage_conv(value, from_unit, to_unit, mode):
     else:
         print("Invalid mode")
         return None
-
     from_factor = units[from_unit]
     to_factor = units[to_unit]
     result = value * from_factor / to_factor
     return result
 
+
 def storage_menu():
     """ CLI interface for storage module"""
     while True:
-        print(f"=== Storage units conversion ===\n")
+        print("=== Storage units conversion ===\n")
         print("Which output mode?")
-        print(f"\n[1] Decimal units\n[2] Binary units\n")
+        print("\n[1] Decimal units\n[2] Binary units\n")
         mode = input("Enter your choice: ")
         if mode == "1":
             units = dec_units

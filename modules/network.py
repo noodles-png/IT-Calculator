@@ -1,5 +1,6 @@
 from modules.helpers import outro_prompt, unit_choice
 
+
 # Bandwidth units
 bandwidth_units = {
     "bps": 1,
@@ -8,6 +9,7 @@ bandwidth_units = {
     "gbps": 1000000000,
     "tbps": 1000000000000
 }
+
 
 # Size units
 size_units = {
@@ -19,34 +21,35 @@ size_units = {
     "tb": 8000000000000,
 }
 
-def format_time(seconds):
-    """ Formats the time in certain time units
 
+def format_time(seconds: float) -> str:
+    """ Formats the time in certain time units
     Args:
         seconds: the time in seconds
-
-    Returns:
-        returns the formatted time in certain time units
+    Returns the formatted time in certain time units
     """
     if seconds >= 3600:
-        return f"{seconds /3600:.2f} hours"
+        return f"{seconds / 3600:.2f} hours"
     elif seconds >= 60:
-        return f"{seconds /60:.2f} minutes"
+        return f"{seconds / 60:.2f} minutes"
     elif seconds >= 1:
-        return f"{seconds /1:.2f} seconds"
+        return f"{seconds / 1:.2f} seconds"
     else:
         return f"{seconds * 1000:.2f} milliseconds"
 
 
-def time_calc(value, value_unit, bandwidth_size, bandwidth_unit):
+def time_calc(
+        value: int,
+        value_unit: str,
+        bandwidth_size: int,
+        bandwidth_unit: str
+) -> float:
     """ Calculates the time it takes to download a certain sized file
-
     Args:
         value: size of the file
         value_unit: size unit of the file
         bandwidth_size: size of the network bandwidth
         bandwidth_unit: size unit of the network bandwidth
-
     Returns: time in seconds
     """
     size_unit = size_units[value_unit]
@@ -55,7 +58,10 @@ def time_calc(value, value_unit, bandwidth_size, bandwidth_unit):
     return result
 
 
-def size_calc(time_input, bandwidth_size, bandwidth_unit):
+def size_calc(time_input: float,
+              bandwidth_size: int,
+              bandwidth_unit: str
+              ) -> float:
     """ Calculates the size of a file to be sent in a network
     Args:
         time_input: time in seconds
@@ -68,9 +74,9 @@ def size_calc(time_input, bandwidth_size, bandwidth_unit):
     return result
 
 
-def bandwidth_calc(value, value_unit, time_input):
+def bandwidth_calc(value: float, value_unit: str, time_input: float) -> float:
     """ Calculates the size of the network bandwidth
-    Args:
+    Arg:
         value: size of the file
         value_unit: size unit of the file
         time_input: time in seconds
@@ -93,7 +99,11 @@ def network_menu():
             value_unit = unit_choice(size_units)
             bandwidth_size = float(input("Choose a bandwidth: "))
             bandwidth_unit = unit_choice(bandwidth_units)
-            result = time_calc(value, value_unit, bandwidth_size, bandwidth_unit)
+            result = time_calc(value,
+                               value_unit,
+                               bandwidth_size,
+                               bandwidth_unit
+                               )
             print((format_time(result)))
         elif calc_choice == "2":
             time_input = float(input("Enter time in sec: "))

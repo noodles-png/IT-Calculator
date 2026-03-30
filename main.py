@@ -3,11 +3,13 @@ from modules.storage import storage_menu
 from modules.network import network_menu
 from modules.subnetting import subnet_menu
 
+
 # Farbdefinitionen
 green = "\033[92m"
 red = "\033[91m"
 bold = "\033[1m"
 reset = "\033[0m"
+
 
 # Main menu options
 categories = [
@@ -48,6 +50,6 @@ def show_menu():
         else:
             continue
 
+
 if __name__ == "__main__":
     show_menu()
-
