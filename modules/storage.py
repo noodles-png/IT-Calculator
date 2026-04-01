@@ -35,6 +35,7 @@ def storage_conv(value: float,
         value (float): value to convert
         from_unit (str): size unit from which to convert
         to_unit (str): unit from which to convert
+    Returns result (float) of conversion
         """
     if mode == "1":
         units = dec_units
