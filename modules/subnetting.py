@@ -77,6 +77,14 @@ def calculate_subnet(int_result: int, mask: int, prefix: int):
     print(f"Host begin: {int_to_ip(host_begin)}")
     print(f"Host end: {int_to_ip(host_end)}")
     print(f"Host amount: {host_amount}")
+    return {
+        "network_address": int_to_ip(network_address),
+        "broadcast": int_to_ip(broadcast),
+        "subnet_mask": int_to_ip(mask),
+        "host_begin": int_to_ip(host_begin),
+        "host_end": int_to_ip(host_end),
+        "host_amount": host_amount,
+    }
 
 
 def subnet_menu():
@@ -88,7 +96,9 @@ def subnet_menu():
         prefix = int(prefix)
         int_result = ip_to_int(ip)
         mask = cidr_to_mask(prefix)
-        calculate_subnet(int_result, mask, prefix)
+        subnet_result = calculate_subnet(int_result, mask, prefix)
+        for i in subnet_result:
+            print(f"{i}: {subnet_result[i]}")
         outro = outro_prompt()
         if outro == "again":
             continue

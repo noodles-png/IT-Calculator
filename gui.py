@@ -2,8 +2,13 @@ import tkinter as tk
 from tkinter import ttk
 from modules.numbers import to_decimal, from_decimal
 from modules.storage import storage_conv, dec_units, bi_units
-from modules.network import network_menu
-from modules.subnetting import subnet_menu
+from modules.network import (size_units,
+                             bandwidth_units,
+                             time_calc,
+                             format_time,
+                             size_calc,
+                             bandwidth_calc)
+from modules.subnetting import calculate_subnet, valid_ip, ip_to_int, int_to_ip, cidr_to_mask
 from modules.helpers import unit_choice
 
 
@@ -27,8 +32,24 @@ class App_window(tk.Tk):
         notebook.add(network_tab, text="Network")
         notebook.add(subnet_tab, text="Subnet")
 
+        network_subnb = ttk.Notebook(network_tab)
+        network_subnb.pack(expand=True, fill="both", padx=5, pady=5)
+
+        timecalc_tab = ttk.Frame(network_subnb)
+        network_subnb.add(timecalc_tab, text="Time calculation")
+
+        size_tab = ttk.Frame(network_subnb)
+        network_subnb.add(size_tab, text="Size calculation")
+
+        bandwidth_tab = ttk.Frame(network_subnb)
+        network_subnb.add(bandwidth_tab, text="Bandwidth calculation")
+
         NumbersTab(numbers_tab)
         StorageTab(storage_tab)
+        TimeCalcTab(timecalc_tab)
+        SizeCalcTab(size_tab)
+        BandwidthCalcTab(bandwidth_tab)
+        SubnetCalcTab(subnet_tab)
 
 
 class NumbersTab:
@@ -145,12 +166,148 @@ class StorageTab:
             to_factor = bi_units[to_unit]
 
         result = value * from_factor / to_factor
-        self.result_label.config(text=f"Result: {result}")
+        self.result_label.config(text=f"Result: {result}{to_factor}")
 
 
-class NetworkTab:
+class TimeCalcTab:
     def __init__(self, parent):
-        """ Defines the structure of network tab"""
+        """ Defines the structure of subtab timecalc_tab in network tab"""
+        ttk.Label(parent, text="Value").grid(row=0, column=0)
+        self.entry = ttk.Entry(parent)
+        self.entry.grid(row=0, column=1)
+
+        ttk.Label(parent, text="Size unit:").grid(row=1, column=0)
+        self.size_unit = ttk.Combobox(parent, values=list(size_units.keys()))
+        self.size_unit.grid(row=1, column=1)
+
+        ttk.Label(parent, text="Bps value:").grid(row=2, column=0)
+        self.bps_size = ttk.Entry(parent)
+        self.bps_size.grid(row=2, column=1)
+
+        ttk.Label(parent, text="Bandwidth unit:").grid(row=3, column=0)
+        self.bandwidth_unit = ttk.Combobox(parent, values=list(bandwidth_units.keys()))
+        self.bandwidth_unit.grid(row=3, column=1)
+
+        ttk.Button(parent, text="Convert", command=self.time_click).grid(row=5, column=1)
+
+        self.result_label = ttk.Label(parent, text="")
+        self.result_label.grid(row=7, column=1)
+
+    def time_click(self):
+        """ Calls time function from time module """
+        value = int(self.entry.get())
+        value_unit = self.size_unit.get()
+        bandwidth_size = int(self.bps_size.get())
+        bandwidth_unit = self.bandwidth_unit.get()
+        self.time_result = format_time(time_calc(
+                                                 value,
+                                                 value_unit,
+                                                 bandwidth_size,
+                                                 bandwidth_unit
+                                                 )
+                                       )
+        self.result_label.config(text=f"={self.time_result}")
+
+
+class SizeCalcTab:
+    def __init__(self, parent):
+        """ Defines the structure of subtab sizecalc_tab in network tab"""
+        ttk.Label(parent, text="Time in seconds").grid(row=1, column=0)
+        self.time_entry = ttk.Entry(parent)
+        self.time_entry.grid(row=1, column=1)
+
+        ttk.Label(parent, text="Bps:").grid(row=2, column=0)
+        self.time_bps = ttk.Entry(parent)
+        self.time_bps.grid(row=2, column=1)
+
+        ttk.Label(parent, text="Bandwidth unit:").grid(row=3, column=0)
+        self.time_bandwidth = ttk.Combobox(parent, values=list(bandwidth_units.keys()))
+        self.time_bandwidth.grid(row=3, column=1)
+
+        ttk.Button(parent, text="Convert", command=self.size_click).grid(row=5, column=1)
+
+        self.result_label = ttk.Label(parent, text="")
+        self.result_label.grid(row=7, column=1)
+
+
+    def size_click(self):
+        """ Calls size function from size module """
+        value = int(self.time_entry.get())
+        bandwidth_size = int(self.time_bps.get())
+        bandwidth_unit = self.time_bandwidth.get()
+        self.result_label.config(text=f"{size_calc(value, bandwidth_size, bandwidth_unit)} bits")
+
+
+class BandwidthCalcTab:
+    def __init__(self, parent):
+        """ Defines the structure of subtab bandwidth_tab in network tab"""
+        ttk.Label(parent, text="Value").grid(row=0, column=0)
+        self.size_entry = ttk.Entry(parent)
+        self.size_entry.grid(row=0, column=1)
+
+        ttk.Label(parent, text="Value unit:").grid(row=1, column=0)
+        self.size_unit = ttk.Combobox(parent, values=list(size_units.keys()))
+        self.size_unit.grid(row=1, column=1)
+
+        ttk.Label(parent, text="Time in seconds:").grid(row=2, column=0)
+        self.time_entry = ttk.Entry(parent)
+        self.time_entry.grid(row=2, column=1)
+
+        ttk.Button(parent, text="Convert", command=self.bandwidth_click).grid(row=5, column=1)
+
+        self.result_label = ttk.Label(parent, text="")
+        self.result_label.grid(row=7, column=1)
+
+
+    def bandwidth_click(self):
+        """ Calls bandwidth function from time module """
+        value = float(self.size_entry.get())
+        value_unit = self.size_unit.get()
+        time_input = float(self.time_entry.get())
+
+        self.result_label.config(text=f"{bandwidth_calc(value, value_unit, time_input):.2f} bits per second")
+
+
+class SubnetCalcTab:
+    def __init__(self, parent):
+        """ Defines the structure in network tab"""
+        ttk.Label(parent, text="Ip address/CIDR:").grid(row=0, column=0)
+        self.ip_address = ttk.Entry(parent)
+        self.ip_address.grid(row=0, column=1)
+
+        ttk.Button(parent, text="Convert", command=self.subnet_click).grid(row=1, column=1)
+
+        self.ipresult_label = ttk.Label(parent, text="")
+        self.ipresult_label.grid(row=2, column=1)
+        self.broadcast_label = ttk.Label(parent, text="")
+        self.broadcast_label.grid(row=3, column=1)
+        self.subnetmask_label = ttk.Label(parent, text="")
+        self.subnetmask_label.grid(row=4, column=1)
+        self.hostbegin_label = ttk.Label(parent, text="")
+        self.hostbegin_label.grid(row=5, column=1)
+        self.hostend_label = ttk.Label(parent, text="")
+        self.hostend_label.grid(row=6, column=1)
+        self.hostamount_label = ttk.Label(parent, text="")
+        self.hostamount_label.grid(row=7, column=1)
+
+
+    def subnet_click(self):
+        """ Calls subnet function from network tab """
+        ip_input = self.ip_address.get()
+        ip, prefix = ip_input.split("/")
+        prefix = int(prefix)
+        int_result = ip_to_int(ip)
+        mask = cidr_to_mask(prefix)
+        result = calculate_subnet(int_result, mask, prefix)
+
+        self.ipresult_label.config(text=f"IP address: {result['network_address']}")
+        self.broadcast_label.config(text=f"Broadcast address: {result['broadcast']}")
+        self.subnetmask_label.config(text=f"Subnet mask: {result['subnet_mask']}")
+        self.hostbegin_label.config(text=f"Host begin address: {result['host_begin']}")
+        self.hostend_label.config(text=f"Host end address: {result['host_end']}")
+        self.hostamount_label.config(text=f"Amount of hosts: {result['host_amount']}")
+
+
 
 if __name__ == "__main__":
     app = App_window()
