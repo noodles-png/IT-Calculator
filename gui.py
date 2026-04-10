@@ -1,15 +1,19 @@
+import argparse
 import tkinter as tk
 from tkinter import ttk
 from modules.numbers import to_decimal, from_decimal
-from modules.storage import storage_conv, dec_units, bi_units
+from modules.storage import dec_units, bi_units
 from modules.network import (size_units,
                              bandwidth_units,
                              time_calc,
                              format_time,
                              size_calc,
                              bandwidth_calc)
-from modules.subnetting import calculate_subnet, valid_ip, ip_to_int, int_to_ip, cidr_to_mask
-from modules.helpers import unit_choice
+from modules.subnetting import (
+                                calculate_subnet,
+                                ip_to_int,
+                                cidr_to_mask
+                                )
 
 
 class App_window(tk.Tk):
@@ -66,7 +70,12 @@ class NumbersTab:
         self.combo.grid(row=1, column=1)
 
         ttk.Label(parent, text="Base").grid(row=2, column=0)
-        self.base_combo = ttk.Combobox(parent, values=["2", "8", "16"])
+        self.base_combo = ttk.Combobox(parent, values=[
+            "2",
+            "8",
+            "16"
+        ]
+                                       )
         self.base_combo.grid(row=2, column=1)
 
         ttk.Button(parent, text="Convert", command=self.numbers_click).grid(row=3, column=1)
@@ -80,7 +89,6 @@ class NumbersTab:
         self.oct_label.grid(row=6, column=1)
         self.hex_label = ttk.Label(parent, text="", justify="left")
         self.hex_label.grid(row=7, column=1)
-
 
     def numbers_click(self):
         """ Calls numbers function from numbers module """
@@ -150,7 +158,6 @@ class StorageTab:
     def storage_click(self):
         """ Calls storage function from storage module """
         self.result_label.config(text="")
-
         value = float(self.entry.get())
         from_unit = self.from_combo.get()
         to_unit = self.to_combo.get()
@@ -266,7 +273,6 @@ class BandwidthCalcTab:
         time_input = float(self.time_entry.get())
 
         self.result_label.config(text=f"{bandwidth_calc(value, value_unit, time_input):.2f} bits per second")
-
 
 class SubnetCalcTab:
     def __init__(self, parent):

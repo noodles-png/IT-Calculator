@@ -2,6 +2,7 @@ from modules.numbers import number_menu
 from modules.storage import storage_menu
 from modules.network import network_menu
 from modules.subnetting import subnet_menu
+import argparse
 
 
 # Farbdefinitionen
@@ -52,4 +53,22 @@ def show_menu():
 
 
 if __name__ == "__main__":
-    show_menu()
+    parser = argparse.ArgumentParser(description="IT-Rechner")
+    parser.add_argument("--cli", action="store_true", help="Start in CLI mode")
+    parser.add_argument("--gui", action="store_true", help="Start in GUI mode")
+    args = parser.parse_args()
+
+    if args.cli:
+        show_menu()
+    elif args.gui:
+        from gui import App_window
+        app = App_window()
+        app.mainloop()
+    else:
+        from gui import App_window
+        app = App_window()
+        app.mainloop()
+
+
+
+
